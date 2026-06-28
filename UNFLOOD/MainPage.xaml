@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UNFLOOD.MainPage">
+
+    <!-- Efek Background Gradasi Biru sesuai image_f1c821.jpg -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0284C7" Offset="0.0" />
+            <GradientStop Color="#0F172A" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <!-- Konten Utama di Tengah Layar -->
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Border StrokeShape="RoundRectangle 12" 
+                Stroke="Transparent" 
+                BackgroundColor="White" 
+                WidthRequest="400" 
+                Padding="30" 
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Header Aplikasi -->
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="UNFLOOD" FontAttributes="Bold" FontSize="26" TextColor="#0284C7" HorizontalOptions="Center" CharacterSpacing="2" />
+                    <Label Text="Flood Early Warning System" FontSize="12" TextColor="#64748B" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <BoxView Color="#E2E8F0" HeightRequest="1" HorizontalOptions="Fill" />
+
+                <!-- Input Username -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Username" TextColor="#334155" FontSize="13" FontAttributes="Bold" />
+                    <Border StrokeShape="RoundRectangle 8" Stroke="#CBD5E1" BackgroundColor="#F8FAFC" Padding="12,0" HeightRequest="44">
+                        <Entry x:Name="EntryUsername" Placeholder="Masukkan Username" PlaceholderColor="#94A3B8" TextColor="#0F172A" VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Input Password -->
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Password" TextColor="#334155" FontSize="13" FontAttributes="Bold" />
+                    <Border StrokeShape="RoundRectangle 8" Stroke="#CBD5E1" BackgroundColor="#F8FAFC" Padding="12,0" HeightRequest="44">
+                        <Entry x:Name="EntryPassword" Placeholder="********" IsPassword="True" PlaceholderColor="#94A3B8" TextColor="#0F172A" VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Pilihan Radio Button Otorisasi -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Akses Role Otorisasi" TextColor="#334155" FontSize="13" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                        <RadioButton Grid.Column="0" Content="Admin" GroupName="RoleGroup" TextColor="Black" CheckedChanged="OnRoleChanged"/>
+                        <RadioButton Grid.Column="1" Content="BMKG" GroupName="RoleGroup" TextColor="Black" CheckedChanged="OnRoleChanged"/>
+                        <RadioButton Grid.Column="2" Content="Warga" GroupName="RoleGroup" TextColor="Black" CheckedChanged="OnRoleChanged" IsChecked="True"/>
+                    </Grid>
+                </VerticalStackLayout>
+
+                <!-- Tombol Aksi -->
+                <Button Text="MASUK SISTEM" FontAttributes="Bold" BackgroundColor="#0284C7" TextColor="White" CornerRadius="10" HeightRequest="46" Clicked="OnLoginClicked" Margin="0,10,0,0" />
+                <Button Text="Belum punya akun? Daftar di sini" BackgroundColor="Transparent" TextColor="#0284C7" FontAttributes="Bold" FontSize="12" Clicked="OnGoToRegisterClicked" />
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

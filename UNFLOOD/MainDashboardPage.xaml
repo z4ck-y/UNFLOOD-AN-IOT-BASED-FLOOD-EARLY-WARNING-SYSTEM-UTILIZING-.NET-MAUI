@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UNFLOOD.MainDashboardPage"
+             BackgroundColor="#F1F5F9">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <Border Grid.Row="0" StrokeThickness="0" HeightRequest="75">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#0284C7" Offset="0.0" />
+                    <GradientStop Color="#0369A1" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid ColumnDefinitions="*, Auto, Auto" Padding="25,0">
+                <HorizontalStackLayout Grid.Column="0" Spacing="12" VerticalOptions="Center">
+                    <Label Text="UNFLOOD" FontSize="26" FontAttributes="Bold" TextColor="#FFFFFF" CharacterSpacing="1.5" VerticalOptions="Center"/>
+                    <Label Text="|  Flood Early Warning System" FontSize="13" TextColor="#E0F2FE" FontAttributes="Bold" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Frame Grid.Column="1" BackgroundColor="#E0F2FE" BorderColor="Transparent" CornerRadius="20" Padding="15,6" Margin="0,0,15,0" VerticalOptions="Center">
+                    <Label x:Name="TxtWelcomeRole" Text="Otorisasi" TextColor="#0369A1" FontAttributes="Bold" FontSize="12"/>
+                </Frame>
+
+                <Button Grid.Column="2" Text="LOGOUT" Clicked="OnLogoutClicked" BackgroundColor="#EF4444" TextColor="White" FontAttributes="Bold" CornerRadius="8" HeightRequest="38" WidthRequest="95" VerticalOptions="Center"/>
+            </Grid>
+        </Border>
+
+        <ScrollView Grid.Row="1" Padding="25">
+            <VerticalStackLayout Spacing="20">
+
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="20">
+                    <Border Grid.Column="0" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="20">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="10">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="📡" FontSize="18"/>
+                                <Label Text="Data Sensor Lokal (ESP32 Telemetry)" FontAttributes="Bold" TextColor="#0F172A" FontSize="15" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <BoxView Color="#E2E8F0" HeightRequest="1"/>
+
+                            <Grid ColumnDefinitions="*, Auto" Margin="0,5">
+                                <Label Text="Tinggi Muka Air (TMA):" TextColor="#64748B" FontSize="14"/>
+                                <Label x:Name="LblLiveTma" Grid.Column="1" Text="0.0 cm" FontAttributes="Bold" TextColor="#0284C7" FontSize="18"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*, Auto" Margin="0,5">
+                                <Label Text="Laju Aliran / Flow Rate:" TextColor="#64748B" FontSize="14"/>
+                                <Label x:Name="LblLiveFlow" Grid.Column="1" Text="0.0 L/min" FontAttributes="Bold" TextColor="#0F172A" FontSize="16"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="20">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="10">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="☁️" FontSize="18"/>
+                                <Label Text="Data Eksternal (API BMKG Forecast)" FontAttributes="Bold" TextColor="#0F172A" FontSize="15" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <BoxView Color="#E2E8F0" HeightRequest="1"/>
+
+                            <Grid ColumnDefinitions="*, Auto" Margin="0,5">
+                                <Label Text="Prakiraan Cuaca:" TextColor="#64748B" FontSize="14"/>
+                                <Label x:Name="LblBmkgCuaca" Grid.Column="1" Text="Memuat..." FontAttributes="Bold" TextColor="#0369A1" FontSize="16"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*, Auto" Margin="0,5">
+                                <Label Text="Estimasi Curah Hujan:" TextColor="#64748B" FontSize="14"/>
+                                <Label x:Name="LblBmkgHujan" Grid.Column="1" Text="0.0 mm" FontAttributes="Bold" TextColor="#0F172A" FontSize="16"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="20">
+
+                    <Border Grid.Column="0" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="15">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="10">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="📍" FontSize="16" VerticalOptions="Center"/>
+                                <Label Text="Pemetaan Koordinat Sensor (IoT)" FontAttributes="Bold" TextColor="#0F172A" FontSize="14" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <BoxView Color="#E2E8F0" HeightRequest="1"/>
+                            <Image Source="map_keputih.png" HeightRequest="140" Aspect="AspectFill" HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="20">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                        </Border.Shadow>
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center">
+                                <Label x:Name="LblLokasi" Text="LOKASI: KEPUTIH (AUTOMATED SENSOR)" FontSize="15" FontAttributes="Bold" TextColor="#0284C7"/>
+                                <Label Text="Koordinat Lokasi: -7.29047, 112.78931" FontSize="12" TextColor="#64748B"/>
+                                <Label x:Name="LblCatatan" Text="Status: Menunggu Sinkronisasi..." FontSize="12" TextColor="#475569" Margin="0,5,0,0"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" WidthRequest="120">
+                                <Label Text="Flow Meter Aktual" FontSize="11" TextColor="#64748B" HorizontalOptions="Center"/>
+                                <GraphicsView x:Name="GaugeFlowView" HeightRequest="70" WidthRequest="100" Margin="0,5,0,0"/>
+                                <Label x:Name="LblGaugeText" Text="0.0 L/m" FontSize="14" FontAttributes="Bold" TextColor="#0F172A" HorizontalOptions="Center" Margin="0,-10,0,0"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="20">
+
+                    <Border Grid.Column="0" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="25">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="15">
+                            <Label Text="📊 Visualisasi Elevasi Air Terintegrasi" FontAttributes="Bold" TextColor="#1E293B" FontSize="15"/>
+                            <BoxView Color="#E2E8F0" HeightRequest="1" HorizontalOptions="Fill"/>
+
+                            <Label x:Name="LblStatusBahaya" Text="Status: Menunggu Data" TextColor="#0F172A" FontSize="15" FontAttributes="Bold"/>
+                            <Label x:Name="LblRekomendasi" Text="Rekomendasi Alat: STANDBY" TextColor="#0F172A" FontSize="14" FontAttributes="Bold"/>
+
+                            <Grid ColumnDefinitions="Auto, *" Margin="0,10,0,0">
+                                <Label Grid.Column="0" Text="Elevasi Air" WidthRequest="120" TextColor="#0284C7" FontSize="12" FontAttributes="Bold" VerticalOptions="Center"/>
+                                <BoxView x:Name="BarAktual" Grid.Column="1" Color="#0284C7" HeightRequest="18" WidthRequest="10" CornerRadius="4" HorizontalOptions="Start"/>
+                            </Grid>
+
+                            <Button x:Name="BtnPemicuSirine" Text="🚨 BUNYIKAN SIRINE DARURAT" BackgroundColor="#EF4444" TextColor="White" FontAttributes="Bold" CornerRadius="8" HeightRequest="44" IsVisible="False" Margin="0,20,0,0"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="20">
+                        <Border.Shadow>
+                            <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                        </Border.Shadow>
+                        <Grid RowDefinitions="Auto, *, Auto" RowSpacing="15" HeightRequest="280">
+
+                            <VerticalStackLayout Grid.Row="0" Spacing="10">
+                                <Label Text="💬 Interaksi Asisten AI" FontAttributes="Bold" TextColor="#0F172A" FontSize="15"/>
+                                <BoxView Color="#E2E8F0" HeightRequest="1"/>
+                            </VerticalStackLayout>
+
+                            <ScrollView Grid.Row="1" x:Name="ChatScrollView">
+                                <VerticalStackLayout x:Name="ChatContainer" Spacing="12" Padding="5,0,10,5">
+                                </VerticalStackLayout>
+                            </ScrollView>
+
+                            <Grid Grid.Row="2" ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                                <Border Grid.Column="0" StrokeShape="RoundRectangle 20" Stroke="#CBD5E1" BackgroundColor="#F8FAFC" Padding="15,0" HeightRequest="45">
+                                    <Entry x:Name="EntryNlpText" Placeholder="Ketik pertanyaan atau laporan Anda..." PlaceholderColor="#94A3B8" TextColor="#0F172A" VerticalOptions="Center"/>
+                                </Border>
+                                <Button Grid.Column="1" Text="Kirim" Clicked="OnKirimAsistenClicked" BackgroundColor="#0284C7" TextColor="White" FontAttributes="Bold" CornerRadius="20" HeightRequest="45" WidthRequest="80"/>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Border BackgroundColor="White" 
+                        StrokeThickness="0" 
+                        StrokeShape="RoundRectangle 16" 
+                        Padding="20" 
+                        Margin="0,10,0,0">
+
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.05"/>
+                    </Border.Shadow>
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="💾" FontSize="16" VerticalOptions="Center"/>
+                            <Label Text="Database Log Peristiwa Terintegrasi (SQLite)" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#0F172A" 
+                                   FontSize="14" 
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <BoxView Color="#E2E8F0" HeightRequest="1"/>
+
+                        <!-- Header Tabel -->
+                        <Grid ColumnDefinitions="1.4*, 1*, 1*, 1.4*, 4*" 
+                              Padding="10,5" 
+                              BackgroundColor="#F8FAFC">
+
+                            <Label Grid.Column="0" 
+                                   Text="Waktu Kejadian" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#475569" 
+                                   FontSize="12"/>
+
+                            <Label Grid.Column="1" 
+                                   Text="TMA (cm)" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#475569" 
+                                   FontSize="12"/>  
+
+                            <Label Grid.Column="2" 
+                                   Text="Flow (L/m)" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#475569" 
+                                   FontSize="12"/>
+
+                            <Label Grid.Column="3" 
+                                   Text="Status NN" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#475569" 
+                                   FontSize="12"/>
+
+                            <Label Grid.Column="4" 
+                                   Text="Keterangan Sistem" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#475569" 
+                                   FontSize="12"/>
+                        </Grid>
+
+                        <!-- Isi Tabel -->
+                        <CollectionView x:Name="ViewTabelLog" HeightRequest="190">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="1.4*, 1*, 1*, 1.4*, 4*" 
+                                          Padding="10,8">
+
+                                        <Label Grid.Column="0" 
+                                               Text="{Binding WaktuPencatatan, StringFormat='{0:dd/MM HH:mm:ss}'}" 
+                                               TextColor="#334155" 
+                                               FontSize="12" 
+                                               VerticalOptions="Start"/>
+
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding TMA, StringFormat='{0:F1}'}" 
+                                               TextColor="#0284C7" 
+                                               FontAttributes="Bold" 
+                                               FontSize="12" 
+                                               VerticalOptions="Start"/>
+
+                                        <Label Grid.Column="2" 
+                                               Text="{Binding FlowRate, StringFormat='{0:F1}'}" 
+                                               TextColor="#0F172A" 
+                                               FontSize="12" 
+                                               VerticalOptions="Start"/>
+
+                                        <Label Grid.Column="3"
+                                               Text="{Binding StatusFuzzy}"
+                                               TextColor="#0F172A"
+                                               FontAttributes="Bold"
+                                               FontSize="12"
+                                               VerticalOptions="Start"/>
+
+                                        <Label Grid.Column="4" 
+                                               Text="{Binding Catatan}" 
+                                               TextColor="#64748B" 
+                                               FontSize="11"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="2"
+                                               VerticalOptions="Start"/>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

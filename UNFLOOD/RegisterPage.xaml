@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UNFLOOD.RegisterPage"
+             BackgroundColor="#F1F5F9">
+
+    <Grid>
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0284C7" Offset="0.0" />
+                    <GradientStop Color="#0F172A" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <ScrollView VerticalOptions="Center">
+            <Border StrokeThickness="0" 
+                    StrokeShape="RoundRectangle 16" 
+                    BackgroundColor="White" 
+                    Padding="35,30" 
+                    WidthRequest="440" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    Margin="0,20">
+                <Border.Shadow>
+                    <Shadow Brush="#000000" Offset="0,8" Radius="20" Opacity="0.15"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="16">
+
+                    <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                        <Label Text="REGISTRASI AKUN" FontSize="26" FontAttributes="Bold" TextColor="#0284C7" HorizontalOptions="Center" CharacterSpacing="1" />
+                        <Label Text="Buat kredensial telemetri baru Anda" FontSize="12" TextColor="#64748B" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <BoxView Color="#E2E8F0" HeightRequest="1" HorizontalOptions="Fill" />
+
+                    <Border StrokeShape="RoundRectangle 8" Stroke="#CBD5E1" BackgroundColor="#F8FAFC" Padding="12,0" HeightRequest="44">
+                        <Entry x:Name="EntryUsername" Placeholder="Buat Username" TextColor="#0F172A" PlaceholderColor="#94A3B8" VerticalOptions="Center"/>
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 8" Stroke="#CBD5E1" BackgroundColor="#F8FAFC" Padding="12,0" HeightRequest="44">
+                        <Entry x:Name="EntryPassword" Placeholder="Buat Password" IsPassword="True" TextColor="#0F172A" PlaceholderColor="#94A3B8" VerticalOptions="Center"/>
+                    </Border>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Pilih Hak Akses Role Baru:" TextColor="#334155" FontSize="13" FontAttributes="Bold" />
+
+                        <Picker x:Name="PickerRole" IsVisible="False">
+                            <Picker.Items>
+                                <x:String>Admin</x:String>
+                                <x:String>BMKG</x:String>
+                                <x:String>Warga</x:String>
+                            </Picker.Items>
+                        </Picker>
+
+                        <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                            <RadioButton Grid.Column="0" Content="Admin" GroupName="RegRoleGroup" TextColor="Black" CheckedChanged="OnRoleChanged"/>
+                            <RadioButton Grid.Column="1" Content="BMKG" GroupName="RegRoleGroup" TextColor="Black" CheckedChanged="OnRoleChanged"/>
+                            <RadioButton Grid.Column="2" Content="Warga" GroupName="RegRoleGroup" TextColor="Black" CheckedChanged="OnRoleChanged" IsChecked="True"/>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <Label Text="Otorisasi Pemindaian Wajah:" FontAttributes="Bold" FontSize="13" TextColor="#334155" Margin="0,5,0,-10"/>
+                    <Border StrokeShape="RoundRectangle 12" Stroke="#CBD5E1" BackgroundColor="#F1F5F9" HeightRequest="180" WidthRequest="260" HorizontalOptions="Center">
+                        <Image x:Name="CameraPreview" Aspect="AspectFill"/>
+                    </Border>
+
+                    <Button Text="📷 AMBIL FOTO WAJAH" Clicked="OnCaptureFaceClicked" BackgroundColor="#64748B" TextColor="White" FontAttributes="Bold" CornerRadius="8" HeightRequest="44"/>
+                    <Button Text="DAFTAR AKUN BARU" Clicked="OnRegisterClicked" BackgroundColor="#0284C7" TextColor="White" FontAttributes="Bold" CornerRadius="8" HeightRequest="46" Margin="0,5,0,0"/>
+                    <Button Text="Kembali ke Login" Clicked="OnBackToLoginClicked" BackgroundColor="Transparent" TextColor="#64748B" FontAttributes="Bold"/>
+
+                </VerticalStackLayout>
+            </Border>
+        </ScrollView>
+    </Grid>
+</ContentPage>
