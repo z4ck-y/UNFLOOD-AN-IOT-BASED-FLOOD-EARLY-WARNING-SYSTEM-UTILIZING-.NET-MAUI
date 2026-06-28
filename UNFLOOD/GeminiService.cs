@@ -10,7 +10,7 @@ namespace UNFLOOD
     {
         private static readonly HttpClient _client = new HttpClient();
 
-        private const string ApiKey = "AQ.Ab8RN6KLyf8HBMRENpTGI4-zzkiKmfuk04C1fXaFXK-R1sHELg";
+        private const string ApiKey = "AQ.Ab8RN6K_gSiYzYL-iaQeTnzxGM9SX829Av7CH3bnRgMKhRg-zw";
 
         // Fungsi 1: Untuk membuat rekomendasi mitigasi di dashboard dan untuk Warga
         public static async Task<string> GenerateMitigasiAsync(string lokasi, double tma, string cuaca, string statusFuzzy)
