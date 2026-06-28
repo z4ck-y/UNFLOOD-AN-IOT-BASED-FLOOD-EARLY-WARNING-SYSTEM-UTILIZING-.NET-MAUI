@@ -12,7 +12,6 @@ namespace UNFLOOD
 
         private const string ApiKey = "AQ.Ab8RN6KLyf8HBMRENpTGI4-zzkiKmfuk04C1fXaFXK-R1sHELg";
 
-        // Fungsi 1: Untuk membuat rekomendasi mitigasi di dashboard dan untuk Warga
         public static async Task<string> GenerateMitigasiAsync(string lokasi, double tma, string cuaca, string statusFuzzy)
         {
             try
@@ -48,7 +47,6 @@ namespace UNFLOOD
             }
         }
 
-        // Fungsi 2: Untuk mengekstrak data fusion otomatis saat BMKG melakukan Override
         public static async Task<string> AnalyzeAsAssistantAsync(string text)
         {
             try
